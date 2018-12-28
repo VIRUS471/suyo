@@ -14,31 +14,58 @@
   <div class="card">
     <div class="card-header">Login</div>
     <div class="card-body">
-      <form class="" action="index.html" method="post">
-        <input type="text" name="txtuser" placeholder="admin id">
+      <form class=""  method="post">
+        <input type="text" name="txtuser" id="txtuser" placeholder="admin id">
         <br/>
-        <input type="text" name="txtpassword" placeholder="password">
+        <input type="text" name="txtpassword" id="txtpassword" placeholder="password">
         <br/>
         <button type="button" class="btn btn-primary mb-2" name="btnsubmit" onclick="check()">Submit</button>
+        <span id="message"></span>
       </form>
-      <div class="alert alert-success" id="status">
-
-      </div>
     </div>
   </div>
 
   <script>
   function check() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("status").innerHTML =
-        this.responseText;
-      }
-    };
-    xhttp.open("GET", "<strong>Success!</strong> Indicates a successful or positive action.", true);
-    xhttp.send();
+    var name = $('#txtuser').val()
+    var password= $('#txtpassword').val()
+    if (name == ' ' || password == ' '){
+      $.ajax({
+        success:function(){
+          $("form").trigger("reset");
+          $('#message').fadeIn().html("missing Fields");
+          setTimeout(function(){
+            $('#message').fadeOut("Slow");
+          }, 2000);
+        }
+      });
+    }
+    else
+    {
+      $('#message').html(' ');
+      $.ajax({
+        success:function(){
+          $("form").trigger("reset");
+          $('#message').fadeIn().html("Success");
+          setTimeout(function(){
+            $('#message').fadeOut("Slow");
+          }, 2000);
+        }
+      });
+    }
+
   }
   </script>
+
 </body>
 </html>
+
+ <!-- var xhttp = new XMLHttpRequest();
+  // xhttp.onreadystatechange = function() {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     document.getElementById("status").innerHTML =
+  //     this.responseText;
+  //   }
+  // };
+  // xhttp.open("GET", "<strong>Success!</strong> Indicates a successful or positive action.", true);
+  // xhttp.send(); -->
